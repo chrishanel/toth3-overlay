@@ -10,7 +10,7 @@ var numeral = require('numeral');
 
 module.exports = function (nodecg) {
     var total = nodecg.Replicant('total', {defaultValue: {}});
-    var benchmark = nodecg.Replicant('benchmark');
+    var benchmark = nodecg.Replicant('benchmark', {defaultValue: {"raw": 0}});
     var autoUpdateTotal = nodecg.Replicant('autoUpdateTotal', {defaultValue: true})
         .on('change', function(oldVal, newVal) {
             if (newVal) {
