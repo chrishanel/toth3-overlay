@@ -20,7 +20,7 @@
             display: block;
             height: 100%;
             font-family: "proxima-nova-condensed";
-            text-transform: uppercase;
+            /* text-transform: uppercase; */
 
             padding: 0 0.429em;
             font-size: 1.524em;
@@ -40,7 +40,7 @@
 
         #line {
             height: 0.17em;
-            background-color: #F47425;
+            background-color: #FFFFFF;
             width: 0;
             transform-origin: center;
         }
@@ -84,8 +84,8 @@
 // rely on GSAP being loaded.
 document.addEventListener('DOMContentLoaded', function () {
 
-    createjs.Sound.registerSound('snd/lowerthird_in.ogg', 'lowerthird_in');
-    createjs.Sound.registerSound('snd/lowerthird_out.ogg', 'lowerthird_out');
+    // createjs.Sound.registerSound('snd/lowerthird_in.ogg', 'lowerthird_in');
+    // createjs.Sound.registerSound('snd/lowerthird_out.ogg', 'lowerthird_out');
 
     Polymer({
         is: 'toth-lowerthird',
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var body = this.$.body;
             var self = this;
 
-            createjs.Sound.play('lowerthird_in').pan = 0.000001;
+            // createjs.Sound.play('lowerthird_in').pan = 0.000001;
 
             TweenLite.to(line, 0.8, {
                 width: Math.max(title.getBoundingClientRect().width + logo.offsetWidth, body.offsetWidth),
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var self = this;
             var tl = new TimelineLite();
 
-            createjs.Sound.play('lowerthird_out').pan = 0.000001;
+          //  createjs.Sound.play('lowerthird_out').pan = 0.000001;
 
             tl.add('start');
             tl.to(logo, 0.5, {y: '100%', ease: Power3.easeIn}, 'start');

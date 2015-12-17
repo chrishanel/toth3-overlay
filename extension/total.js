@@ -1,7 +1,7 @@
 'use strict';
 
-var DONATION_STATS_URL = 'http://tracker.tipofthehats.org/2?json';
-var POLL_INTERVAL = 3 * 60 * 1000;
+var DONATION_STATS_URL = 'https://archive.org/metadata/donate';
+var POLL_INTERVAL = 1 * 60 * 1000;
 
 var util = require('util');
 var Q = require('q');
@@ -10,6 +10,7 @@ var numeral = require('numeral');
 
 module.exports = function (nodecg) {
     var total = nodecg.Replicant('total', {defaultValue: {}});
+    var benchmark = nodecg.Replicant('benchmark');
     var autoUpdateTotal = nodecg.Replicant('autoUpdateTotal', {defaultValue: true})
         .on('change', function(oldVal, newVal) {
             if (newVal) {
@@ -58,7 +59,9 @@ module.exports = function (nodecg) {
         request(DONATION_STATS_URL, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 var stats = JSON.parse(body);
-                var raw = parseFloat(stats.agg.amount || 0);
+                var raw = parseFloat(stats.metadata.estimated_current_amount || 0);
+                var bench = benchmark.value.raw;
+                raw = raw - bench;
                 var freshTotal = numeral(raw).format('$0,0');
 
                 if (freshTotal !== total.value) {

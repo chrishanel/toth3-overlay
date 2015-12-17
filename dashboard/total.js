@@ -9,7 +9,7 @@
     var modal = $('#toth3-overlay_editTotal');
     var saveTotal = modal.find('.js-save');
     var totalEdit = modal.find('input[name="total"]');
-
+    var benchmarkEdit = modal.find('input[name="benchmark"]');
     var autoUpdateOnBtn = panel.find('.js-automaticOn');
     var autoUpdateOffBtn = panel.find('.js-automaticOff');
 
@@ -17,6 +17,11 @@
         .on('change', function(oldVal, newVal) {
             totalDisplay.html(newVal.formatted);
             totalEdit.val(newVal.raw);
+        });
+
+    var donBenchmark = nodecg.Replicant('benchmark')
+        .on('change', function(oldVal, newVal) {
+            benchmarkEdit.val(newVal.raw);
         });
 
     var autoUpdateTotal = nodecg.Replicant('autoUpdateTotal')
@@ -51,10 +56,14 @@
 
     saveTotal.click(function () {
         var raw = totalEdit.val();
+        var rawBench = benchmarkEdit.val();
         total.value = {
             raw: parseFloat(raw),
             formatted: window.numeral(raw).format('$0,0')
         };
+        donBenchmark.value = {
+            raw: parseFloat(rawBench)
+        }
     });
 
     function showUpdateResult(el, type, msg) {
